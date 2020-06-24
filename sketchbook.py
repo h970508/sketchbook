@@ -22,7 +22,7 @@ def main():
     save = font_.render("Save", True, (0, 128, 128))
     save_rect = save.get_rect()
     save_rect.center = (925, 520)
-    fn = 0
+    count = 0
     
     while True:
         
@@ -46,6 +46,7 @@ def main():
                 sys.exit(0)
             elif event.type == MOUSEBUTTONDOWN:
                 mousedown = True
+                mousepos.append(mouse)
                 if (950 >= mouse[0] >= 900) and (170 >= mouse[1] >= 120):
                     draw_color = yellow
                 elif (950 >= mouse[0] >= 900) and (270 >= mouse[1] >= 220):
@@ -55,20 +56,20 @@ def main():
                 elif (950 >= mouse[0] >= 900) and (470 >= mouse[1] >= 420):
                     draw_color = blue
                 elif (950 >= mouse[0] >= 900) and (70 >= mouse[1] >= 20):
-                    draw_color = black
-                elif (965 >= mouse[0] >= 885) and (530 >= mouse[1] >= 505):
-                    fn += 1
-                    pygame.image.save(screen, "_.jpg")
+                    draw_color = black                
             elif event.type == MOUSEMOTION:
                 if mousedown:
                     mousepos.append(event.pos)
             elif event.type == MOUSEBUTTONUP:
                 mousedown = False
+                count += 1        
  
                 
         if len(mousepos) > 1:
             pygame.draw.lines(screen, draw_color, False, mousepos)
-
+         
+        if (click[0] == 1) and (965 >= mouse[0] >= 885) and (530 >= mouse[1] >= 505):
+            pygame.image.save(screen, str(count) + "_.png")
 
         pygame.display.update()
 
